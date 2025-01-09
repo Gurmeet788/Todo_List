@@ -1,21 +1,41 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 public class Node {
 
     private int taskId;
     private String taskName;
     private String description;
-    private LocalDateTime dueDate;
-    private String Priority;
+    private LocalDate dueDate;
+    private String priority;
     private String status;
+    private Node next;
+    private Node prev;
 
-    public Node(int taskId, String taskName, String description, LocalDateTime dueDate, String priority,
+    
+
+    public Node() {
+    }
+
+    public Node(int taskId, String taskName, String description, LocalDate dueDate, String priority, String status,
+            Node next, Node prev) {
+
+                setTaskId(taskId);
+                setTaskName(taskName);
+                setDescription(description);
+                setDueDate(dueDate);
+                setPriority(priority);
+                setStatus(status);
+        this.next = next;
+        this.prev = prev;
+    }
+
+    public Node(int taskId, String taskName, String description, LocalDate dueDate, String priority,
             String status) {
-        this.taskId = taskId;
-        this.taskName = taskName;
-        this.description = description;
-        this.dueDate = dueDate;
-        Priority = priority;
-        this.status = status;
+                setTaskId(taskId);
+                setTaskName(taskName);
+                setDescription(description);
+                setDueDate(dueDate);
+                setPriority(priority);
+                setStatus(status);
     }
 
     public int getTaskId() {
@@ -25,7 +45,7 @@ public class Node {
     public void setTaskId(int taskId) {
 
         try {
-            
+
             if (taskId <= 0) {
                 throw new IllegalAccessError("The taskId is neg it is invalid");
             }
@@ -73,16 +93,16 @@ public class Node {
         this.description = description;
     }
 
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
     public String getPriority() {
-        return Priority;
+        return priority;
     }
 
     public void setPriority(String priority) {
@@ -91,12 +111,12 @@ public class Node {
 
             priority = priority.toUpperCase();
 
-            if (!Priority.matches("LOW|MEDIUM|HIGH")) {  // YOU HAVE TO GIVE Proity in low medium and high otherwise it will give you an error
+            if (!priority.matches("LOW|MEDIUM|HIGH")) {  // YOU HAVE TO GIVE Proity in low medium and high otherwise it will give you an error
 
                 throw new IllegalAccessError("Please enter valid prioority");
             }
 
-            this.Priority = priority;
+            this.priority = priority;
 
         } catch (IllegalAccessError e) {
 
@@ -125,5 +145,21 @@ public class Node {
 
             System.out.println("Error:" + e.getMessage());
         }
+    }
+
+    public Node getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Node prev) {
+        this.prev = prev;
+    }
+
+    public Node getNext() {
+        return next;
+    }
+
+    public void setNext(Node next) {
+        this.next = next;
     }
 }
