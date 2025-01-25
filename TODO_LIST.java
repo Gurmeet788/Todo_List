@@ -1,7 +1,4 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
 public class TODO_LIST {
 
     Node head;
@@ -9,10 +6,11 @@ public class TODO_LIST {
     public static void main(String[] args) {
         TODO_LIST todo_LIST = new TODO_LIST();
 
-        while (true) {
+        boolean flage = true;
+        while (flage) {
             
         
-        System.out.println("Enter what you want to do from blow\nAddTask:\nDeleteTask:");
+        System.out.println("Enter what you want to do from blow\nAddTask:\nDeleteTask:\nDispalyTask:\nUpadate:\nExit:");
         Scanner scanner = new Scanner(System.in);
         String choise = scanner.nextLine();
 
@@ -21,9 +19,22 @@ public class TODO_LIST {
                 todo_LIST.addTask(todo_LIST.head);
                 break;
             case "DeleteTask":
-                 System.out.println("Enter taskId:");
-                 int taskId = scanner.nextInt();
-                 todo_LIST.DeleteTask(null,taskId);
+                System.out.println("Enter taskId:");
+                int taskId = scanner.nextInt();
+                todo_LIST.DeleteTask(todo_LIST.head,taskId);
+                break;
+
+            case "DispalyTask":
+                todo_LIST.displayTasks(todo_LIST.head);
+                break;
+            case "Upadate":
+                System.out.println("Enter taskId:");
+                int taskIdU = scanner.nextInt();
+                todo_LIST.update(todo_LIST.head, taskIdU);
+                break;
+            case "Exit":
+                flage = false;
+                break;
             default:
                 System.out.println("Invalid");
                 break;
@@ -37,9 +48,7 @@ public class TODO_LIST {
         int taskId;
         String taskName;
         String description;
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate dueDate;
-        String dateString;
+        String dueDate;
         String priority;
         String status;
     
@@ -59,8 +68,7 @@ public class TODO_LIST {
         description = scanner.nextLine();
     
         System.out.print("Enter Due Date (dd-MM-yyyy): ");
-        dateString = scanner.nextLine();
-        dueDate = LocalDate.parse(dateString, format);
+        dueDate = scanner.nextLine();
     
         System.out.print("Enter Priority (LOW | MEDIUM | HIGH): ");
         priority = scanner.nextLine();
@@ -93,12 +101,22 @@ public class TODO_LIST {
 
         Node temp = head;
 
+
+        if (head.getNext() == null) {
+            
+            this.head = null;
+
+            return;
+        }
+
         if (taskId == 1) {
 
             temp.getNext().setPrev(temp.getPrev());
             temp.setNext(null);
 
             this.head = temp;
+
+            return;
 
         }
         while (temp.getTaskId() != taskId) {
@@ -112,6 +130,7 @@ public class TODO_LIST {
             temp.setPrev(null);
 
             this.head = head;
+            return;
         }
 
         temp.getNext().setPrev(temp.getPrev());
@@ -120,10 +139,93 @@ public class TODO_LIST {
         temp.setPrev(null);
 
         this.head = head;
+
+        return;
     }
 
 
-    public static void displayTasks(Node head) {
+    public void update(Node head, int taskId){
+
+        // if (isEmpty(head)) {
+        //     System.out.println("List is empty");
+        //     return;
+        // }
+
+        Node temp = head;
+        while (temp.getTaskId() != taskId) {
+
+            temp = temp.getNext();
+        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        boolean flage = true;
+
+        while (flage) {
+        System.out.println("Enter your choise what you want to update\nFull:\ntaskId:\ntaskName:\ndescription:\ndueDate:\npriority:\nstatus\nExit:");
+
+        String choise = scanner.nextLine();
+
+        if (choise.equals("Full")){
+
+            System.out.println("Enter new taskId:");
+            temp.setTaskId(scanner.nextInt());
+
+            System.out.println("Enter new taskName:");
+            temp.setTaskName(scanner.nextLine());
+
+            System.out.println("Enter new taskDescription:");
+            temp.setDescription(scanner.nextLine());
+
+            System.out.println("Enter new dueDate:");
+            temp.setDueDate(scanner.nextLine());
+
+            System.out.println("Enter new priority:");
+            temp.setPriority(scanner.nextLine());
+
+            System.out.println("Enter new status:");
+            temp.setStatus(scanner.nextLine());
+
+        }else if (choise.equals("Exit")) {
+            System.out.println("iiiii");
+            return;
+
+        }else{
+       
+        switch (choise) {
+            case "taskId":
+                System.out.println("Enter new taskId:");
+                temp.setTaskId(scanner.nextInt());
+                break;
+            case "taskName":
+                System.out.println("Enter new taskName:");
+                temp.setTaskName(scanner.nextLine());
+                break;
+            case "description":
+                System.out.println("Enter new taskDescription:");
+                temp.setDescription(scanner.nextLine());
+                break;
+            case "dueDate":
+                System.out.println("Enter new dueDate:");
+                temp.setDueDate(scanner.nextLine());
+                break; 
+            case "priority":
+                System.out.println("Enter new priority:");
+                temp.setPriority(scanner.nextLine());
+                break;
+            case "status": 
+                System.out.println("Enter new status:");
+                temp.setStatus(scanner.nextLine());
+                break; 
+            default:
+                System.out.println("Invalid");
+                break;
+        }
+    }
+    }
+    }
+
+    public void displayTasks(Node head) {
         if (head == null) {
             System.out.println("No tasks to display. The list is empty.");
             return;

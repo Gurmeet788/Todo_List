@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Node {
 
     private int taskId;
@@ -15,7 +16,7 @@ public class Node {
     public Node() {
     }
 
-    public Node(int taskId, String taskName, String description, LocalDate dueDate, String priority, String status,
+    public Node(int taskId, String taskName, String description, String dueDate, String priority, String status,
             Node next, Node prev) {
 
                 setTaskId(taskId);
@@ -28,7 +29,7 @@ public class Node {
         this.prev = prev;
     }
 
-    public Node(int taskId, String taskName, String description, LocalDate dueDate, String priority,
+    public Node(int taskId, String taskName, String description, String dueDate, String priority,
             String status) {
                 setTaskId(taskId);
                 setTaskName(taskName);
@@ -97,8 +98,9 @@ public class Node {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
+    public void setDueDate(String duedate) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        dueDate = LocalDate.parse(duedate, format);
     }
 
     public String getPriority() {
