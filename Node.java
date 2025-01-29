@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 public class Node {
 
     private int taskId;
@@ -45,17 +46,27 @@ public class Node {
 
     public void setTaskId(int taskId) {
 
+        while (true) {
+
         try {
 
             if (taskId <= 0) {
-                throw new IllegalAccessError("The taskId is neg it is invalid");
+                throw new IllegalAccessError("The taskId is neg it is invalid Type again:");
             }
 
             this.taskId = taskId;
 
+            break;
+
         } catch (IllegalAccessError e) {
-            System.out.println("Error:" + e.getMessage());
+
+            System.out.println("---------------------------------");
+            System.out.print("Error:" + e.getMessage());
+            Scanner sc = new Scanner(System.in);
+            taskId = sc.nextInt();
+            System.out.println("---------------------------------");
         }
+    }
     }
 
     public String getTaskName() {
@@ -63,6 +74,8 @@ public class Node {
     }
 
     public void setTaskName(String taskName) {
+
+        while (true) {
         try {
             
             if (taskName == null || taskName.trim().isEmpty()) { // if name is null or just space than throw error message
@@ -80,10 +93,17 @@ public class Node {
 
             this.taskName = taskName;
 
-        } catch (IllegalAccessError e) {
+            break;
 
-            System.out.println("Error:" + e.getMessage());
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("---------------------------------");
+            System.out.print("Error:" + e.getMessage());
+            Scanner sc = new Scanner(System.in);
+            taskName = sc.nextLine();
+            System.out.println("---------------------------------");
         }
+    }
     }
 
     public String getDescription() {
@@ -99,8 +119,18 @@ public class Node {
     }
 
     public void setDueDate(String duedate) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        dueDate = LocalDate.parse(duedate, format);
+        while (true) {
+            try {
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                this.dueDate = LocalDate.parse(duedate, format);
+                break;  // Exit loop if input is valid
+            } catch (Exception e) {
+                System.out.println("Error: Invalid date format. Please use dd-MM-yyyy.");
+                System.out.print("Enter Due Date again (dd-MM-yyyy): ");
+                Scanner sc = new Scanner(System.in);
+                duedate = sc.nextLine();
+            }
+        }
     }
 
     public String getPriority() {
@@ -108,6 +138,9 @@ public class Node {
     }
 
     public void setPriority(String priority) {
+
+        while (true) {
+            
         try {
             // Convert input to uppercase
             priority = priority.toUpperCase();
@@ -120,11 +153,18 @@ public class Node {
     
             // If valid, assign the value to the instance variable
             this.priority = priority;
+
+            break;
     
         } catch (IllegalArgumentException e) {
             // Catch the exception and print the error message
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("---------------------------------");
+            System.out.print("Error: " + e.getMessage());
+            Scanner sc = new Scanner(System.in);
+            priority = sc.nextLine();
+            System.out.println("---------------------------------");
         }
+    }
     }
     
 
@@ -135,6 +175,8 @@ public class Node {
     public void setStatus(String status) {
         status = status.toUpperCase();
 
+        while (true) {
+            
         try {
             status = status.toUpperCase();
 
@@ -145,10 +187,17 @@ public class Node {
 
             this.status = status;
 
+            break;
+
         } catch (IllegalArgumentException e) {
 
-            System.out.println("Error:" + e.getMessage());
+            System.out.println("---------------------------------");
+            System.out.print("Error:" + e.getMessage());
+            Scanner sc = new Scanner(System.in);
+            status = sc.nextLine();
+            System.out.println("---------------------------------");
         }
+    }
     }
 
     public Node getPrev() {

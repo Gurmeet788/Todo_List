@@ -8,9 +8,8 @@ public class TODO_LIST {
 
         boolean flage = true;
         while (flage) {
-            
         
-        System.out.println("Enter what you want to do from blow\nAddTask:\nDeleteTask:\nDispalyTask:\nUpadate:\nExit:");
+        System.out.println("Enter what you want to do from blow\nAddTask:\nDeleteTask:\nDispalyTask:\nUpadate:\nSearch:\nExit:");
         Scanner scanner = new Scanner(System.in);
         String choise = scanner.nextLine();
 
@@ -31,6 +30,11 @@ public class TODO_LIST {
                 System.out.println("Enter taskId:");
                 int taskIdU = scanner.nextInt();
                 todo_LIST.update(todo_LIST.head, taskIdU);
+                break;
+            case "Search":
+                System.out.println("Enter taskName");
+                String taskName =scanner.nextLine();
+                todo_LIST.search(todo_LIST.head, taskName);  
                 break;
             case "Exit":
                 flage = false;
@@ -146,10 +150,10 @@ public class TODO_LIST {
 
     public void update(Node head, int taskId){
 
-        // if (isEmpty(head)) {
-        //     System.out.println("List is empty");
-        //     return;
-        // }
+        if (isEmpty(head)) {
+            System.out.println("List is empty");
+            return;
+        }
 
         Node temp = head;
         while (temp.getTaskId() != taskId) {
@@ -187,7 +191,6 @@ public class TODO_LIST {
             temp.setStatus(scanner.nextLine());
 
         }else if (choise.equals("Exit")) {
-            System.out.println("iiiii");
             return;
 
         }else{
@@ -225,6 +228,53 @@ public class TODO_LIST {
     }
     }
 
+    public Node findMid(Node start, Node end){
+        Node slow = start;
+        Node fast = start;
+
+        while (fast != end && fast.getNext() != end) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+
+        return slow;
+    }
+    public void search(Node head, String taskName){
+
+        if (isEmpty(head)) {
+
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node start = head;
+        Node end = null;
+        while (start != end) {
+
+            Node mid = findMid(start, end);
+
+            if (mid.getTaskName().equals(taskName)) {
+                System.out.println("Task ID: " + mid.getTaskId());
+                System.out.println("Task Name: " + mid.getTaskName());
+                System.out.println("Description: " + mid.getDescription());
+                System.out.println("Due Date: " + mid.getDueDate());
+                System.out.println("Priority: " + mid.getPriority());
+                System.out.println("Status: " + mid.getStatus());
+                System.out.println("-----------------------");
+
+                return;
+            }else if (mid.getTaskName().compareTo(taskName) > 0) {
+
+                end = mid;
+
+            }else if (mid.getTaskName().compareTo(taskName) < 0) {
+
+                start = mid.getNext();
+            }
+        }
+        System.out.println("Task not found");
+        return;
+    }
     public void displayTasks(Node head) {
         if (head == null) {
             System.out.println("No tasks to display. The list is empty.");
