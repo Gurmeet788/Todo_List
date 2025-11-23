@@ -1,16 +1,19 @@
 import java.util.Scanner;
-public class TODO_LIST {
-
+public class TODO_LIST{
+    
     Node head;
     Node current;
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
+        
         TODO_LIST todo_LIST = new TODO_LIST();
 
         boolean flage = true;
         while (flage) {
         
         System.out.println("Enter what you want to do from blow\nAddTask:\nDeleteTask:\nDispalyTask:\nUpadate:\nSearch:\nExit:");
-        Scanner scanner = new Scanner(System.in);
+        
         String choise = scanner.nextLine();
 
         switch (choise) {
@@ -55,9 +58,6 @@ public class TODO_LIST {
         String dueDate;
         String priority;
         String status;
-    
-        // Create a Scanner to read input
-        Scanner scanner = new Scanner(System.in);
     
         System.out.println("Enter the new task details:");
     
@@ -160,8 +160,6 @@ public class TODO_LIST {
 
             temp = temp.getNext();
         }
-
-        Scanner scanner = new Scanner(System.in);
 
         boolean flage = true;
 

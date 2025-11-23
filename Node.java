@@ -12,7 +12,7 @@ public class Node {
     private Node next;
     private Node prev;
 
-    
+    static Scanner sc = new Scanner(System.in);
 
     public Node() {
     }
@@ -62,7 +62,6 @@ public class Node {
 
             System.out.println("---------------------------------");
             System.out.print("Error:" + e.getMessage());
-            Scanner sc = new Scanner(System.in);
             taskId = sc.nextInt();
             System.out.println("---------------------------------");
         }
@@ -99,7 +98,6 @@ public class Node {
 
             System.out.println("---------------------------------");
             System.out.print("Error:" + e.getMessage());
-            Scanner sc = new Scanner(System.in);
             taskName = sc.nextLine();
             System.out.println("---------------------------------");
         }
@@ -127,7 +125,6 @@ public class Node {
             } catch (Exception e) {
                 System.out.println("Error: Invalid date format. Please use dd-MM-yyyy.");
                 System.out.print("Enter Due Date again (dd-MM-yyyy): ");
-                Scanner sc = new Scanner(System.in);
                 duedate = sc.nextLine();
             }
         }
@@ -160,7 +157,6 @@ public class Node {
             // Catch the exception and print the error message
             System.out.println("---------------------------------");
             System.out.print("Error: " + e.getMessage());
-            Scanner sc = new Scanner(System.in);
             priority = sc.nextLine();
             System.out.println("---------------------------------");
         }
@@ -193,7 +189,6 @@ public class Node {
 
             System.out.println("---------------------------------");
             System.out.print("Error:" + e.getMessage());
-            Scanner sc = new Scanner(System.in);
             status = sc.nextLine();
             System.out.println("---------------------------------");
         }
